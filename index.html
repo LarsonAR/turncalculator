@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coliseum Turn Calculator</title>
+</head>
+<body>
+    <div id="app">
+        <h3>Dragons</h3>
+        <ol>
+            <li v-for="dragon in dragons">{{dragon.name}} (QCK = {{dragon.quickness}}, {{dragon.ambush}} Ambushes)
+                <button type="button" @click="deleteDragon(dragon)">X</button>
+            </li>
+        </ol>
+        <h4>New Dragon</h4>
+        <p>Name: <input type="text" v-model="newDragon.name">
+            QCK: <input type="number" v-model="newDragon.quickness">
+            # of Ambushes: <input type="number" min="0" max="2" v-model="newDragon.numAmbush">
+            <button type="button" @click="addDragon">Submit</button>
+        </p>
+
+        <h3>Monsters</h3>
+        <ol>
+            <li v-for="monster in monsters">{{monster.name}} (QCK = {{monster.quickness}})
+                <button type="button" @click="deleteMonster(monster)">X</button>
+            </li>
+        </ol>
+        <h4>New Monster</h4>
+        <p>Name: <input type="text" v-model="newMonster.name">
+            QCK: <input type="number" v-model="newMonster.quickness">
+            <button type="button" @click="addMonster">Submit</button>
+        </p>
+
+        <p>Number of rounds: <input type="number" max="50" v-model="numRounds"></p>
+        <button type="button" @click="calculateTurns"><h4>Calculate Turn Order</h4></button>
+
+        <div v-show="turnsCalculated">
+            <h3>Turn Order</h3>
+            <ol>
+                <li v-for="item in turns">{{item}}</li>
+            </ol>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="vue.js"></script>
+</body>
+</html>
