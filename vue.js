@@ -72,17 +72,16 @@ const App = new Vue ({
             for (let i = 0; i < this.numRounds; i++) {
                 combatants.forEach(c => c.initiative += c.quickness);
 
-                let minBreath = turncost;
-                while (minBreath >= turncost) {
-                    minBreath = 0;
+                let maxBreath = turncost;
+                while (maxBreath >= turncost) {
                     combatants.sort((a,b) => b.initiative - a.initiative);
-                    for (let c of combatants) {
-                        if (c.initiative >= turncost) {
-                            this.turns.push(c.name);
-                            c.initiative -= turncost;
-                            console.log(c.initiative);
-                        }
-                        minBreath = Math.max(minBreath, c.initiative);
+                    let c = combatants[0];
+                    maxBreath = c.initiative;
+                    console.log(c.name);
+                    if (c.initiative >= turncost) {
+                        this.turns.push(c.name);
+                        c.initiative -= turncost;
+                        console.log(c.initiative);
                     }
                 }
             }
