@@ -1,6 +1,18 @@
+const VENUES = ["Training Fields", "Woodland Path", "Scorched Forest"];
+const FILEPATHS = ["trainingfields.csv", "woodlandpath.csv", "scorchedforest.csv"];
+
+async function readFile(filePath) {
+    let response = await fetch(filePath);
+    if (response.ok) {
+        return response.text();
+    }
+}
+
 const App = new Vue ({
     el: "#app",
     data: {
+        addType: "encounter",
+        venues: VENUES,
         dragons: [],
         monsters: [],
         newDragon: {
@@ -15,6 +27,8 @@ const App = new Vue ({
         turnsCalculated: false,
         numRounds: null,
         turns: [],
+
+        loadedMonsters: [],
     },
     methods: {
         addDragon() {
@@ -29,10 +43,10 @@ const App = new Vue ({
             this.newDragon.numAmbush = 0;
         },
         deleteDragon(dragon) {
-            let index = this.dragons.findIndex(s => s === dragon);
+            let index = this.dragons.findIndex(d => d === dragon);
             this.dragons.splice(index, 1);
         },
-        addMonster() {
+        addCustomMonster() {
             this.monsters.push({
                 name: this.newMonster.name,
                 quickness: parseInt(this.newMonster.quickness),
@@ -41,11 +55,18 @@ const App = new Vue ({
             this.newMonster.name = null;
             this.newMonster.quickness = null;
         },
+        addMonster(name, quickness) {
+            this.monsters.push({
+                name: name,
+                quickness: parseInt(quickness),
+                initiative: 0,
+            });
+        },
         deleteMonster(monster) {
-            let index = this.monsters.findIndex(s => s === monster);
+            let index = this.monsters.findIndex(m => m === monster);
             this.monsters.splice(index, 1);
         },
-        calculateTurns() {
+        async calculateTurns() {
             this.turns = [];
 
             for (let dragon of this.dragons) {
@@ -56,7 +77,6 @@ const App = new Vue ({
             if (this.monsters.length === 0) return;
 
             let turncost = this.monsters[this.monsters.length - 1].quickness;
-            console.log("Turn cost: " + turncost);
 
             let combatants = [];
             this.dragons.forEach(d => {
@@ -73,19 +93,24 @@ const App = new Vue ({
 
                 let maxBreath = turncost;
                 while (maxBreath >= turncost) {
-                    combatants.sort((a,b) => b.initiative - a.initiative);
                     let c = combatants[0];
+                    combatants.forEach(combatant => {
+                        if (combatant.initiative > c.initiative) c = combatant;
+                    });
                     maxBreath = c.initiative;
-                    console.log(c.name);
                     if (c.initiative >= turncost) {
                         this.turns.push(c.name);
                         c.initiative -= turncost;
-                        console.log(c.initiative);
                     }
                 }
             }
 
             this.turnsCalculated = true;
+        },
+        async loadMonsters(venue) {
+            let index = VENUES.findIndex(v => v === venue);
+            let csv = await readFile("monsterdata/" + FILEPATHS[index]);
+            this.loadedMonsters = await Papa.parse(csv, {header: true}).data;
         }
     }
 });
