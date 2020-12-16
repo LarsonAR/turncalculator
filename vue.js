@@ -1,5 +1,5 @@
-const VENUES = ["Training Fields", "Woodland Path", "Scorched Forest"];
-const FILEPATHS = ["trainingfields.csv", "woodlandpath.csv", "scorchedforest.csv"];
+const VENUES = ["Training Fields", "Woodland Path", "Scorched Forest", "Sandswept Delta", "Blooming Grove", "Forgotten Cave"];
+const FILEPATHS = ["trainingfields.csv", "woodlandpath.csv", "scorchedforest.csv", "delta.csv", "grove.csv", "forgottencave.csv"];
 
 async function readFile(filePath) {
     let response = await fetch(filePath);
@@ -31,7 +31,7 @@ const App = new Vue ({
         loadedMonsters: [],
     },
     methods: {
-        addDragon() {
+        async addDragon() {
             this.dragons.push({
                 name: this.newDragon.name,
                 quickness: parseInt(this.newDragon.quickness),
@@ -42,11 +42,11 @@ const App = new Vue ({
             this.newDragon.quickness = null;
             this.newDragon.numAmbush = 0;
         },
-        deleteDragon(dragon) {
+        async deleteDragon(dragon) {
             let index = this.dragons.findIndex(d => d === dragon);
             this.dragons.splice(index, 1);
         },
-        addCustomMonster() {
+        async addCustomMonster() {
             this.monsters.push({
                 name: this.newMonster.name,
                 quickness: parseInt(this.newMonster.quickness),
@@ -55,14 +55,14 @@ const App = new Vue ({
             this.newMonster.name = null;
             this.newMonster.quickness = null;
         },
-        addMonster(name, quickness) {
+        async addMonster(name, quickness) {
             this.monsters.push({
                 name: name,
                 quickness: parseInt(quickness),
                 initiative: 0,
             });
         },
-        deleteMonster(monster) {
+        async deleteMonster(monster) {
             let index = this.monsters.findIndex(m => m === monster);
             this.monsters.splice(index, 1);
         },
