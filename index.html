@@ -2,13 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="favicon.ico">
     <title>Coliseum Turn Order Calculator</title>
+    <!-- This tool uses Vue to automatically bind variables and set listeners.
+         It's a little bit like Angular, but instead of declaring templates and components in
+         files specific to Angular, this tool declares a single Vue component in the one JavaScript
+         file. This makes both the HTML and Javascript simpler to maintain. -->
+    <!-- As a result of using Vue, the HTML you see in your browser dev tools is different from
+         the initial HTML code I wrote, since Vue automatically initializes elements as soon as
+         the page loads. If you want to see the initial code, you can look at the index.html file
+         returned as a response to your browser's request. -->
 </head>
 <body>
-    <h1>Coliseum Turn Order Calculator v0.2.1</h1>
+    <h1>Coliseum Turn Order Calculator v0.3.0</h1>
     <p><a href="changelog.html">Changelog</a> | <a href="https://www1.flightrising.com/forums/gde/2945135">Forum Thread</a></p>
     <div id="app">
         <h3>Dragons</h3>
+        <!-- This list is automatically updated based on the "dragons" array declared in the Vue object. -->
         <ol>
             <li v-for="dragon in dragons">{{dragon.name}} (QCK = {{dragon.quickness}}, {{dragon.ambush}} Ambushes)
                 <button type="button" @click="deleteDragon(dragon)">X</button>
@@ -16,12 +26,13 @@
         </ol>
         <h4>Add Dragon</h4>
         <p>Name: <input type="text" v-model="newDragon.name">
-            QCK: <input type="number" v-model="newDragon.quickness">
+            QCK: <input type="number" min="0" v-model="newDragon.quickness">
             # of Ambushes: <input type="number" min="0" max="2" v-model="newDragon.numAmbush">
             <button type="button" @click="addDragon">Add</button>
         </p>
 
         <h3>Monsters</h3>
+        <!-- This list is automatically updated based on the "monsters" array declared in the Vue object. -->
         <ol>
             <li v-for="monster in monsters">{{monster.name}} (QCK = {{monster.quickness}})
                 <button type="button" @click="deleteMonster(monster)">X</button>
@@ -30,25 +41,59 @@
 
         <p>Select a method to add monsters:
             <select v-model="addType">
-                <!-- <option value="encounter">Load Whole Encounter</option> (Not yet implemented) -->
+                <option value="">-- Select --</option>
+                <option value="encounter">Load Whole Encounter</option>
                 <option value="monster">Load Single Monster</option>
                 <option value="custom">Create Custom Monster</option>
             </select></p>
 
         <div v-show="addType === 'encounter'">
+            <h4>Load Encounter</h4>
+            <p>Choose a venue:
+                <select>
+                    <option>-- Select --</option>
+                    <option v-for="venue in venues" :value="venue" @click="loadEncounters(venue)">{{venue}}</option>
+                </select>
+            </p>
 
+            <p v-show="encounters.length > 0"> Find the encounter to load:</p>
+            <p v-show="encounters.length > 0">
+                <select>
+                    <option>-- First Monster --</option>
+                    <option v-for="monster in firstMonsters" :value="monster" @click="setEncounter(0, monster)">{{monster}}</option>
+                </select>
+
+                <select v-show="secondMonsters.length > 0">
+                    <option>-- Second Monster --</option>
+                    <option v-for="monster in secondMonsters" :value="monster" @click="setEncounter(1, monster)">{{monster}}</option>
+                </select>
+
+                <select v-show="thirdMonsters.length > 0">
+                    <option>-- Third Monster --</option>
+                    <option v-for="monster in thirdMonsters" :value="monster" @click="setEncounter(2, monster)">{{monster}}</option>
+                </select>
+
+                <select v-show="fourthMonsters.length > 0">
+                    <option>-- Fourth Monster --</option>
+                    <option v-for="monster in fourthMonsters" :value="monster" @click="setEncounter(3, monster)">{{monster}}</option>
+                </select>
+
+                <button v-show="isValidEncounter" type="button" @click="addEncounter">Add Encounter</button>
+            </p>
         </div>
 
         <div v-show="addType === 'monster'">
             <h4>Load Single Monster</h4>
             <p>Choose a venue:
             <select>
+                <option>-- Select --</option>
                 <option v-for="venue in venues" :value="venue" @click="loadMonsters(venue)">{{venue}}</option>
             </select>
             </p>
 
             <p v-show="loadedMonsters.length > 0">Choose a monster to add:
                 <select>
+                    <option>-- Select --</option>
                     <option v-for="mon in loadedMonsters" @click="addMonster(mon.name, mon.quickness)">{{mon.name}}</option>
                 </select>
             </p>
@@ -73,8 +118,8 @@
             </ol>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
     <script src="https://unpkg.com/papaparse@5.3.0/papaparse.min.js"></script>
-    <script src="vue.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
