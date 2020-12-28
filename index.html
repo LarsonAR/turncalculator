@@ -14,7 +14,7 @@
          returned as a response to your browser's request. -->
 </head>
 <body>
-    <h1>Coliseum Turn Order Calculator v0.3.0</h1>
+    <h1>Coliseum Turn Order Calculator v0.4.0</h1>
     <p><a href="changelog.html">Changelog</a> | <a href="https://www1.flightrising.com/forums/gde/2945135">Forum Thread</a></p>
     <div id="app">
         <h3>Dragons</h3>
@@ -50,9 +50,9 @@
         <div v-show="addType === 'encounter'">
             <h4>Load Encounter</h4>
             <p>Choose a venue:
-                <select>
+                <select @change="loadEncounters($event.target.value)">
                     <option>-- Select --</option>
-                    <option v-for="venue in venues" :value="venue" @click="loadEncounters(venue)">{{venue}}</option>
+                    <option v-for="venue in venues" :value="venue">{{venue}}</option>
                 </select>
             </p>
 
@@ -78,16 +78,16 @@
                     <option v-for="monster in fourthMonsters" :value="monster" @click="setEncounter(3, monster)">{{monster}}</option>
                 </select>
 
-                <button v-show="isValidEncounter" type="button" @click="addEncounter">Add Encounter</button>
+                <button v-show="isValidEncounter" type="button" @click="addEncounter">Load Encounter</button>
             </p>
         </div>
 
         <div v-show="addType === 'monster'">
             <h4>Load Single Monster</h4>
             <p>Choose a venue:
-            <select>
+            <select @change="loadMonsters($event.target.value)">
                 <option>-- Select --</option>
-                <option v-for="venue in venues" :value="venue" @click="loadMonsters(venue)">{{venue}}</option>
+                <option v-for="venue in venues" :value="venue">{{venue}}</option>
             </select>
             </p>
 

@@ -2,8 +2,14 @@
  * Two array constants that connect the names of the venues in the tool's interface
  * with the names of the files corresponding to the venues.
  */
-const VENUES = ["Training Fields", "Woodland Path", "Scorched Forest", "Sandswept Delta", "Blooming Grove", "Forgotten Cave"];
-const FILEPATHS = ["trainingfields", "woodlandpath", "scorchedforest", "delta", "grove", "forgottencave"];
+const VENUES = ["Training Fields", "Woodland Path", "Scorched Forest", "Sandswept Delta", "Blooming Grove",
+                "Forgotten Cave", "Bamboo Falls", "Thunderhead Savanna", "Redrock Cove", "Waterway", "Arena",
+                "Volcanic Vents", "Rainsong Jungle", "Boreal Wood", "Crystal Pools", "Harpy's Roost",
+                "Ghostlight Ruins", "Mire", "Kelp Beds", "Golem Workshop", "Forbidden Portal"];
+const FILEPATHS = ["trainingfields", "woodlandpath", "scorchedforest", "delta", "grove",
+                "forgottencave", "bamboofalls", "savanna", "cove", "waterway", "arena",
+                "vents", "jungle", "borealwood", "pools", "roost",
+                "ruins", "mire", "kelpbeds", "workshop", "portal"];
 
 /**
  * A pair of helper functions that allow the tool to load data from
@@ -13,13 +19,13 @@ async function readFile(filePath) {
     let response = await fetch(filePath);
     if (response.ok) {
         return response.text();
-    }
+    } else console.log("Could not find " + filePath);
 }
 async function readJSON(filePath) {
     let response = await fetch(filePath);
     if (response.ok) {
         return response.json();
-    }
+    } else console.log("Could not find " + filePath);
 }
 
 /**
@@ -241,7 +247,7 @@ const App = new Vue ({
         async loadMonsters(venue) {
             let index = VENUES.findIndex(v => v === venue);
             let csv = await readFile("monsterdata/" + FILEPATHS[index] + ".csv");
-            this.loadedMonsters = await Papa.parse(csv, {header: true}).data;
+            this.loadedMonsters = await Papa.parse(csv, {header: true, skipEmptyLines: true}).data;
         },
         async loadEncounters(venue) {
             let index = VENUES.findIndex(v => v === venue);
