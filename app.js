@@ -198,6 +198,10 @@ const App = new Vue ({
          * encounter problems with the turn order calculation logic!
          */
         async calculateTurns() {
+            if (this.numRounds > 50) {
+                console.log("Max 50 rounds allowed");
+                return;
+            }
             this.turns = [];
 
             for (let dragon of this.dragons) {
@@ -241,7 +245,7 @@ const App = new Vue ({
 
         /**
          * Functions that load monster data based on the venue that is selected. They use
-         * Papa to automatically parse monster data, since that data is stored in CSV files.
+         * Papa Parse to automatically parse monster data, since that data is stored in CSV files.
          * Encounter data is stored as JSON, so Papa is not necessary for them.
          */
         async loadMonsters(venue) {
