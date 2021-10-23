@@ -20,7 +20,7 @@
 
 <body>
     <div class="header">
-        <h1>Coliseum Turn Order Calculator v1.2.0</h1>
+        <h1>Coliseum Turn Order Calculator v1.3.0</h1>
         <p><a href="about.html">About</a> | <a href="changelog.html">Changelog</a> | <a href="https://www1.flightrising.com/forums/gde/2945135">Forum Thread</a></p>
     </div>
     <div id="app" class="container pure-g">
@@ -101,10 +101,10 @@
             <div v-show="addType === 'monster'">
                 <h4>Load Single Monster</h4>
                 <p>Choose a venue:
-                <select @change="loadMonsters($event.target.value)">
-                    <option>-- Select --</option>
-                    <option v-for="venue in venues" :value="venue">{{venue}}</option>
-                </select>
+                    <select @change="loadMonsters($event.target.value)">
+                        <option>-- Select --</option>
+                        <option v-for="venue in venues" :value="venue">{{venue}}</option>
+                    </select>
                 </p>
 
                 <p v-show="loadedMonsters.length > 0">Choose a monster to add:
