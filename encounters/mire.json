@@ -6,6 +6,14 @@
     "Wartoad"
   ],
   [
+    "Armored Colony",
+    "Armored Colony"
+  ],
+  [
+    "Armored Colony",
+    "Fungal Garden"
+  ],
+  [
     "Blackwing Croaker",
     "Blackwing Croaker"
   ],
@@ -22,6 +30,14 @@
     "Southmarsh Podid"
   ],
   [
+    "Furry Fiddle",
+    "Furry Fiddle"
+  ],
+  [
+    "Furry Fiddle",
+    "Muckbottom Catfish"
+  ],
+  [
     "Heartred Croaker",
     "Blackwing Croaker"
   ],
@@ -30,12 +46,24 @@
     "Heartred Croaker"
   ],
   [
+    "Ink Ant",
+    "Acid Ant"
+  ],
+  [
+    "Lion's Mane Seeker",
+    "Lion's Mane Seeker"
+  ],
+  [
     "Mistwatch Shellion",
     "Mistwatch Shellion"
   ],
   [
     "Mossy Cerdae",
     "Mossy Cerdae"
+  ],
+  [
+    "Muckbottom Catfish",
+    "Muckbottom Catfish"
   ],
   [
     "Poisonous Toridae",
@@ -66,16 +94,47 @@
     "Salve Kamaitachi"
   ],
   [
+    "Silt Wolf",
+    "Silt Wolf"
+  ],
+  [
     "Southmarsh Podid",
     "Southmarsh Podid"
+  ],
+  [
+    "Swamp Wolf",
+    "Silt Wolf"
+  ],
+  [
+    "Swamp Wolf",
+    "Swamp Wolf"
   ],
   [
     "Venomous Toridae",
     "Venomous Toridae"
   ],
   [
+    "Vilevenom Kelpie",
+    "Marsh Kelpie"
+  ],
+  [
     "Wetland Unicorn",
     "Wetland Unicorn"
+  ],
+  [
+    "Acid Ant",
+    "Acid Ant",
+    "Acid Ant"
+  ],
+  [
+    "Acid Ant",
+    "Ink Ant",
+    "Acid Ant"
+  ],
+  [
+    "Armored Colony",
+    "Fungal Garden",
+    "Armored Colony"
   ],
   [
     "Blackwing Croaker",
@@ -118,6 +177,26 @@
     "Common Podid"
   ],
   [
+    "Fungal Garden",
+    "Armored Colony",
+    "Fungal Garden"
+  ],
+  [
+    "Fungal Garden",
+    "Fungal Garden",
+    "Fungal Garden"
+  ],
+  [
+    "Furry Fiddle",
+    "Furry Fiddle",
+    "Furry Fiddle"
+  ],
+  [
+    "Furry Fiddle",
+    "Muckbottom Catfish",
+    "Furry Fiddle"
+  ],
+  [
     "Heartred Croaker",
     "Blackwing Croaker",
     "Heartred Croaker"
@@ -126,6 +205,36 @@
     "Heartred Croaker",
     "Heartred Croaker",
     "Heartred Croaker"
+  ],
+  [
+    "Ink Ant",
+    "Acid Ant",
+    "Ink Ant"
+  ],
+  [
+    "Ink Ant",
+    "Ink Ant",
+    "Ink Ant"
+  ],
+  [
+    "Lion's Mane Seeker",
+    "Lion's Mane Seeker",
+    "Lion's Mane Seeker"
+  ],
+  [
+    "Lion's Mane Seeker",
+    "Whisper",
+    "Lion's Mane Seeker"
+  ],
+  [
+    "Marsh Kelpie",
+    "Marsh Kelpie",
+    "Marsh Kelpie"
+  ],
+  [
+    "Marsh Kelpie",
+    "Vilevenom Kelpie",
+    "Marsh Kelpie"
   ],
   [
     "Mistwatch Shellion",
@@ -151,6 +260,11 @@
     "Mossy Cerdae",
     "Wetland Unicorn",
     "Mossy Cerdae"
+  ],
+  [
+    "Muckbottom Catfish",
+    "Furry Fiddle",
+    "Muckbottom Catfish"
   ],
   [
     "Poisonous Toridae",
@@ -243,6 +357,16 @@
     "Sickle Kamaitachi"
   ],
   [
+    "Silt Wolf",
+    "Silt Wolf",
+    "Silt Wolf"
+  ],
+  [
+    "Silt Wolf",
+    "Swamp Wolf",
+    "Silt Wolf"
+  ],
+  [
     "Southmarsh Podid",
     "Brilliant Psywurm",
     "Southmarsh Podid"
@@ -258,6 +382,16 @@
     "Southmarsh Podid"
   ],
   [
+    "Swamp Wolf",
+    "Silt Wolf",
+    "Swamp Wolf"
+  ],
+  [
+    "Swamp Wolf",
+    "Swamp Wolf",
+    "Swamp Wolf"
+  ],
+  [
     "Venomous Toridae",
     "Poisonous Toridae",
     "Venomous Toridae"
@@ -268,6 +402,16 @@
     "Venomous Toridae"
   ],
   [
+    "Vilevenom Kelpie",
+    "Marsh Kelpie",
+    "Vilevenom Keplie"
+  ],
+  [
+    "Vilevenom Kelpie",
+    "Vilevenom Kelpie",
+    "Vilevenom Keplie"
+  ],
+  [
     "Wetland Unicorn",
     "Mossy Cerdae",
     "Wetland Unicorn"
@@ -276,6 +420,11 @@
     "Wetland Unicorn",
     "Wetland Unicorn",
     "Wetland Unicorn"
+  ],
+  [
+    "Whisper",
+    "Lion's Mane Seeker",
+    "Whisper"
   ],
   [
     "Blackwing Croaker",
