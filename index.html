@@ -66,30 +66,30 @@
 
                 <p v-show="encounters.length > 0"> Find the encounter to load:</p>
                 <p v-show="encounters.length > 0">
-                    <select>
-                        <option>-- First Monster --</option>
+                    <select v-model="encounter[0]">
+                        <option disabled>-- First Monster --</option>
                         <option v-for="monster in firstMonsters" :value="monster" @click="setEncounter(0, monster)">{{monster}}</option>
                     </select>
                 </p>
 
                 <p v-show="encounters.length > 0">
-                    <select v-show="secondMonsters.length > 0">
-                        <option>-- Second Monster --</option>
-                        <option v-for="monster in secondMonsters" :value="monster" @click="setEncounter(1, monster)">{{monster}}</option>
+                    <select v-show="secondMonsters.length > 0" v-model="encounter[1]">
+                        <option disabled>-- Second Monster --</option>
+                        <option v-for="monster in secondMonsters" :value="monster">{{monster}}</option>
                     </select>
                 </p>
 
                 <p v-show="encounters.length > 0">
-                    <select v-show="thirdMonsters.length > 0">
-                        <option>-- Third Monster --</option>
-                        <option v-for="monster in thirdMonsters" :value="monster" @click="setEncounter(2, monster)">{{monster}}</option>
+                    <select v-show="thirdMonsters.length > 0" v-model="encounter[2]">
+                        <option disabled>-- Third Monster --</option>
+                        <option v-for="monster in thirdMonsters" :value="monster">{{monster}}</option>
                     </select>
                 </p>
 
                 <p v-show="encounters.length > 0">
-                    <select v-show="fourthMonsters.length > 0">
-                        <option>-- Fourth Monster --</option>
-                        <option v-for="monster in fourthMonsters" :value="monster" @click="setEncounter(3, monster)">{{monster}}</option>
+                    <select v-show="fourthMonsters.length > 0" v-model="encounter[3]">
+                        <option disabled>-- Fourth Monster --</option>
+                        <option v-for="monster in fourthMonsters" :value="monster">{{monster}}</option>
                     </select>
                 </p>
 

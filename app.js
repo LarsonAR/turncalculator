@@ -56,7 +56,12 @@ const App = new Vue ({
         dragons: [],
         monsters: [],
         encounters: [],
-        encounter: [],
+        encounter: [
+            "",
+            "",
+            "",
+            "",
+        ],
         newDragon: {
             name: null,
             quickness: 0,
@@ -100,7 +105,7 @@ const App = new Vue ({
             }).filter((m, i, array) => array.findIndex(mon => mon === m) === i && m).sort();
         },
         isValidEncounter() {
-            return this.encounters.some(enc => enc.toString() === this.encounter.toString());
+            return this.encounters.some(enc => enc.toString() === this.encounter.filter(m => m !== "").toString());
         },
     },
 
