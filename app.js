@@ -66,6 +66,7 @@ const App = new Vue ({
             name: null,
             quickness: 0,
         },
+        selectedMonster: "",
         turnsCalculated: false,
         numRounds: null,
         turns: [],
@@ -145,10 +146,11 @@ const App = new Vue ({
             this.newMonster.name = null;
             this.newMonster.quickness = null;
         },
-        async addMonster(name, quickness) {
+        async addMonster(name) {
+            let monster = this.loadedMonsters.find(m => m.name === name);
             this.monsters.push({
                 name: name,
-                quickness: parseInt(quickness),
+                quickness: parseInt(monster.quickness),
                 initiative: 0,
             });
         },
@@ -169,6 +171,7 @@ const App = new Vue ({
             let newArray = this.encounter.filter(m => true);
             newArray[index] = monster;
             this.encounter = newArray;
+            console.log("Set encounter var");
             },
 
         /**
@@ -249,12 +252,16 @@ const App = new Vue ({
          * Encounter data is stored as JSON, so Papa is not necessary for them.
          */
         async loadMonsters(venue) {
+            this.selectedMonster = "";
             let index = VENUES.findIndex(v => v === venue);
+            console.log("Loading monsters for " + venue + "...");
             let csv = await readFile("monsterdata/" + FILEPATHS[index] + ".csv");
             this.loadedMonsters = await Papa.parse(csv, {header: true, skipEmptyLines: true}).data;
+
         },
         async loadEncounters(venue) {
             let index = VENUES.findIndex(v => v === venue);
+            console.log("Loading encounters for " + venue + "...");
             this.encounters = await readJSON("encounters/" + FILEPATHS[index] + ".json");
             await this.loadMonsters(venue);
         },

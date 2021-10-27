@@ -108,10 +108,11 @@
                 </p>
 
                 <p v-show="loadedMonsters.length > 0">Choose a monster to add:
-                    <select>
-                        <option>-- Select --</option>
-                        <option v-for="mon in loadedMonsters" @click="addMonster(mon.name, mon.quickness)">{{mon.name}}</option>
+                    <select v-model="selectedMonster">
+                        <option disabled value="">-- Select --</option>
+                        <option v-for="mon in loadedMonsters">{{mon.name}}</option>
                     </select>
+                    <p><button v-show="selectedMonster.length > 0" type="button" @click="addMonster(selectedMonster)">Add</button></p>
                 </p>
             </div>
 
