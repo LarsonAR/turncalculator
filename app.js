@@ -213,8 +213,12 @@ const App = new Vue ({
             this.turns = [];
 
             for (let dragon of this.dragons) {
-                if (dragon.ambush > 0) this.turns.push(dragon.name);
-                if (dragon.ambush > 1) this.turns.push(dragon.name);
+                if (dragon.ambush > 0) {
+                    this.turns.push({name: dragon.name, type: 'd'});
+                }
+                if (dragon.ambush > 1) {
+                    this.turns.push({name: dragon.name, type: 'd'});
+                }
             }
 
             if (this.monsters.length === 0) return;
@@ -242,7 +246,13 @@ const App = new Vue ({
                     });
                     maxBreath = c.initiative;
                     if (c.initiative >= turncost) {
-                        this.turns.push(c.name);
+
+                        if (c.hasOwnProperty("ambush")) {
+                            this.turns.push({name: c.name, type: 'd'});
+                        }
+                        else {
+                            this.turns.push({name: c.name, type: 'm'});
+                        }
                         c.initiative -= turncost;
                     }
                 }

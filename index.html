@@ -131,7 +131,9 @@
             <div v-show="turnsCalculated">
                 <h3>Turn Order</h3>
                 <ol>
-                    <li v-for="item in turns">{{item}}</li>
+                    <li v-for="item in turns"><span v-if="item.type === 'd'">(D)</span>
+                        <span v-else>(M)</span>
+                        {{item.name}}</li>
                 </ol>
             </div>
         </div>
