@@ -13,12 +13,20 @@ body {
     border-radius: 0 0 10px 10px;
 }
 
+.header h1 {
+    margin: .5em 0;
+}
+
 .header a {
     color: #cadae0;
 }
 
 .header a:hover {
     color: #7fd5ec;
+}
+
+.fr-dont-sue {
+    line-height: 1;
 }
 
 .container {
