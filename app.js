@@ -208,129 +208,45 @@ const App = new Vue ({
             this.encounter = [];
         },
 
-        /**
-         * The function that calculates the turn order based on the selected dragons and
-         * monsters. This is where the bulk of the tool's essential logic is contained.
-         * If there is a discrepancy between the calculated turn order and what you observe
-         * in the Coli, the issue is most likely in here somewhere. Please let me know if you
-         * encounter problems with the turn order calculation logic!
-         */
-        async calculateTurns() {
+        async calculateTurnsNew() { //alt turn calculating function using new classes
+            console.log("using new algorithm");
             if (this.numRounds > 50) {
                 console.log("Max 50 rounds allowed");
                 return;
             }
-            if (this.effects === null || this.effects.length < this.numRounds) this.effects = [];
-            this.turns = [];
+            let combatants = await this.buildCombatants();
 
-            for (let dragon of this.dragons) {
-                if (dragon.ambush > 0) {
-                    this.turns.push({name: dragon.name, type: 'd'});
-                }
-                if (dragon.ambush > 1) {
-                    this.turns.push({name: dragon.name, type: 'd'});
-                }
-            }
-
-            if (this.monsters.length === 0) return;
-
-            let turncost = this.monsters[this.monsters.length - 1].quickness;
-
-            this.combatants = [];
-            this.dragons.forEach(d => {
-                d.initiative = 0;
-                d.q = d.quickness;
-                d.i = this.combatants.length;
-                this.combatants.push(d);
-            });
-            this.monsters.forEach(m => {
-                m.initiative = 0;
-                m.q = m.quickness;
-                m.i = this.combatants.length;
-                this.combatants.push(m);
-            });
-
-            while (this.turns.length < this.numRounds) {
-                this.combatants.forEach(c => c.initiative += c.q);
-
-                let maxBreath = turncost;
-                while (maxBreath >= turncost) {
-                    let c = this.combatants[0];
-                    this.combatants.forEach(combatant => {
-                        if (combatant.initiative > c.initiative) c = combatant;
-                    });
-                    maxBreath = c.initiative;
-                    if (c.initiative >= turncost) {
-                        let index = this.turns.length;
-                        if (c.hasOwnProperty("ambush")) {
-                            this.turns.push({name: c.name, type: 'd', i: c.i}); //is a dragon
-                        }
-                        else {
-                            this.turns.push({name: c.name, type: 'm', i: c.i}); //is a monster
-                        }
-
-                        if (this.effects.length > index && this.effects[index].eff !== 0) {
-                            let e = this.effects[index];
-                            if (e.eff === 1 && c.q === c.quickness) { //haste
-                                 c.q += e.level + 5;
-                            }
-                            else if (e.eff === 2) { //end of haste
-                                c.q -= e.level + 5;
-                            }
-                        }
-                        c.initiative -= turncost;
-                    }
-                    if (this.turns.length >= this.numRounds) break;
-                }
-            }
-            if (this.effects.length === 0) {
-                //reset effects array
-                this.effects = [];
-                for (let i in this.turns) this.effects.push({eff: 0, level: 0});
-            }
+            let runner = new Runner(combatants);
+            runner.run(this.numRounds);
+            this.turns = runner.get_result();
             this.turnsCalculated = true;
         },
 
-        /**
-         * Adds an effect (such as haste, slowness or defeat) as if it was applied to the combatant on the selected turn.
-         * Currently only haste is supported, and only for dragons.
-         */
-        async addEffect(turn, eff) {
-            if (eff.hasOwnProperty('level')) eff.level = parseInt(eff.level);
-
-            if (eff.eff === 1 && eff.level === 0) return;
-
-            let index = -1;
-            if (turn.hasOwnProperty('name'))
-                index = this.turns.indexOf(turn);
-            else index = turn;
-
-            if (index > -1 && index < this.effects.length) {
-                let combatant = this.turns[index].i;
-                if (eff.eff === 0) { //clear previous effects
-                    for (let i = 0; i < this.turns.length; i++) {
-                        if (combatant === this.turns[i].i) this.effects[i] = {eff: 0, level:0};
-                    }
-                }
-
-                this.effects[index] = eff;
-                await this.calculateTurns();
-
-
-                if (eff.eff === 1) { //add haste
-                    combatant = this.turns[index].i;
-                    let numTurns = 0;
-                    let i = index+1;
-                    while (numTurns < 5 && i < this.turns.length) {
-                        if (combatant === this.turns[i].i) {
-                            if (this.effects[i].eff === 2) this.effects[i].eff = 0;
-                            if (++numTurns === 5) this.effects[i] = {eff: 2, level: eff.level};
-                        }
-                        i++;
-                    }
-                }
-                await this.calculateTurns();
+        async buildCombatants() {
+            let combatants = [];
+            for (let dragon of this.dragons) {
+                combatants.push(new Combatant(dragon.name, dragon.quickness, dragon.ambush));
             }
+            for (let monster of this.monsters) {
+                combatants.push(new Combatant(monster.name, monster.quickness, 0));
+            }
+            return combatants;
+        },
+
+        async turnOrder() {
+            await this.calculateTurnsNew();
+        },
+
+        async turnOrderTest() {
+            this.dragons = [
+                { name: "d1", quickness: 20, ambush: 2 },
+                { name: "d2", quickness: 10, ambush: 0 },
+            ];
+            this.monsters = [
+                { name: "m1", quickness: 26}
+            ];
+            this.numRounds = 20;
+            await this.calculateTurnsNew();
         },
 
         /**

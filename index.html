@@ -128,15 +128,14 @@
         <div class="pure-u bottom">
             <p>Number of rounds: <input class="inline-input" type="number" max="50" v-model="numRounds"></p>
             <p>Dragons' level (optional, used for calculating Haste): <input class="inline-input" type="number" max="25" v-model="level"></p>
-            <button type="button" @click="calculateTurns"><h4 class="button-label">Calculate Turn Order</h4></button>
+            <button type="button" @click="turnOrder"><h4 class="button-label">Calculate Turn Order</h4></button>
+            <!-- <button type="button" @click="turnOrderTest"><h4 class="button-label">Use Test Values</h4></button> -->
 
             <div v-show="turnsCalculated">
                 <h3>Turn Order</h3>
                 <ol>
-                    <li v-for="item in turns"><b @click="addEffect(turns.indexOf(item), {eff: 0, level:0})">(X)</b>
-                        <b @click="addEffect(turns.indexOf(item), {eff: 1, level:level})"
-                        v-bind:style="effects[turns.indexOf(item)].eff === 1 ? {color: 'blue'} : {color: 'black'}">(H)</b>
-                        {{item.name}}</li>
+                    <li v-for="item in turns">
+                        {{item}}</li>
                 </ol>
             </div>
         </div>
@@ -144,5 +143,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
     <script src="https://unpkg.com/papaparse@5.3.0/papaparse.min.js"></script>
     <script src="app.js"></script>
+    <script src="js/combatant.js"></script>
+    <script src="js/runner.js"></script>
 </body>
 </html>
